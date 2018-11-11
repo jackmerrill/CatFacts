@@ -34,6 +34,7 @@ password = config["password"]
 client = shawk.Client(user, password)
 
 
+
 def firstMsg(num, name):
     user = Users.query.filter_by(phone=num)
     client.send("Hey {0}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{1}".format(name, num), num) # replace link with domain
@@ -65,7 +66,7 @@ def signup():
         phone = request.form.get("phone")
         network = request.form.get("network")
         name = request.form.get("name")
-        tocommit = Users(id=len(Users.query.all()), phone=phone, network=network, name=name)
+        tocommit = Users(id=len(Users.query.all())+1, phone=phone, network=network, name=name)
         db.session.add(tocommit)
         db.session.commit()
         client.add_contact(phone, network, name)
