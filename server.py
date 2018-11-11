@@ -169,10 +169,10 @@ server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
 server.login("thesmscatfacts@gmail.com", config["password"])
 msg = EmailMessage()
+msg['From'] = "thesmscatfacts@gmail.com"
 
 def send(message, tosend):
     msg.set_content(message)
-    msg['From'] = "thesmscatfacts@gmail.com"
     msg['To'] = tosend
     server.send_message(msg)
 
@@ -180,16 +180,15 @@ def send(message, tosend):
 
 def firstMsg(num, name, network):
     u = Users.query.filter_by(phone=num)
-    message = "Hey {}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{}".format(name, num)
-    print(message)
-    num = num+"@"+Gateways[network]
-    send(message, num) # replace link with domain
+    message = "Hey {}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts!"
+    email = num+"@"+Gateways[network]
+    send(message, email)
+    send("If you would like to unsubscribe, please visit this link: http://catfacts.jackmerrill.com/stop/{}".format(num), email)
 
 def dailymsg(phone, network):
     fact = requests.get("https://catfact.ninja/fact")
     fact = fact.json()
     message = "Your daily catfact is here! FACT: {}".format(fact["fact"])
-    print(message)
     num = phone+"@"+network
     send(message, num)
 
@@ -227,7 +226,6 @@ def stop(phone):
     todelete = Users.query.filter_by(phone=phone)
     db.session.delete(todelete)
     db.session.commit()
-    client.remove_contact(number=phone)
     return render_template("stop.html", msg="Success!")
 
 
