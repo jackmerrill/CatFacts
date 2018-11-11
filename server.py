@@ -177,7 +177,8 @@ def firstMsg(num, name, network):
     u = Users.query.filter_by(phone=num)
     message = "Hey {}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{}".format(name, num)
     print(message)
-    send(message, number=num, carrier=network) # replace link with domain
+    num = phone+"@"+Gateways[network]
+    send(message, num) # replace link with domain
 
 def dailymsg(phone, network):
     fact = requests.get("https://catfact.ninja/fact")
