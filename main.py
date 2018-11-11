@@ -43,7 +43,7 @@ def dailymsg(phone):
     fact = requests.get("https://catfact.ninja/fact")
     fact = fact.json()
     user = Users.query.filter_by(phone=phone)
-    client.send("Your daily catfact is here! FACT: {}".format(fact["fact"]), number=user.phone)
+    client.send("Your daily catfact is here! FACT: {}".format(fact["fact"]), number=phone)
 
 
 def iterate():
