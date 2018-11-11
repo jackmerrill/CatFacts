@@ -199,9 +199,9 @@ def iterate():
 
 
 
-setInterval(84600, iterate)
+# setInterval(86400, iterate)
 
-# setInterval(10, iterate)
+setInterval(10, iterate)
 
 @app.route("/")
 def index():
