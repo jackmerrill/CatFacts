@@ -38,9 +38,12 @@
         var arr = JSON.parse('{{ networks | tojson | safe }}')
         var i;
         console.log(arr)
-        for (x in arr) {
-            document.getElementsByName("select").innerHTML += '<option>'+x+'</option>'
-        }
+        setTimeout(function(){
+            for (x in arr) {
+                document.getElementsByName("select").innerHTML += '<option>'+x+'</option>'
+            }
+        },1000)
+
         // for (i = 0; i < arr.length; i++) {
         //     document.getElementsByName("select").innerHTML += '<option>'+arr[i]+'</option>'
         // }

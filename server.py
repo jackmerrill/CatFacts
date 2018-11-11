@@ -6,6 +6,7 @@ from threading import Thread
 from time import sleep
 import requests
 
+
 Gateways = {
     'President\'s Choice': 'txt.bell.ca',
     '3 River Wireless': 'sms.3rivers.net',

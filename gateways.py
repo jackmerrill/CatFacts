@@ -4,15 +4,15 @@ Gateways = {
         "email": 'txt.bell.ca'
     },
     {
-        "name": ,
-        "email": 
+        "name": '3 River Wireless',
+        "email":'sms.3rivers.net' 
     },
     {
-        "name": ,
-        "email": 
+        "name": 'ACS Wireless',
+        "email": 'paging.acswireless.com'
     },
     {
-        "name": ,
+        "name": 'AT&T',
         "email": 
     },
     {
