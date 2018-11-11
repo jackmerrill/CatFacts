@@ -37,13 +37,16 @@ client = shawk.Client(user, password)
 
 def firstMsg(num, name, network):
     u = Users.query.filter_by(phone=num)
-    client.send("Hey {}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{}".format(name, num), number=num, carrier=network) # replace link with domain
+    message = "Hey {}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{}".format(name, num)
+    print(message)
+    client.send(message, number=num, carrier=network) # replace link with domain
 
 def dailymsg(phone, network):
     fact = requests.get("https://catfact.ninja/fact")
     fact = fact.json()
-    u = Users.query.filter_by(phone=phone)
-    client.send("Your daily catfact is here! FACT: {}".format(fact["fact"]), number=phone, carrier=network)
+    message = "Your daily catfact is here! FACT: {}".format(fact["fact"])
+    print(message)
+    client.send(message, number=phone, carrier=network)
 
 
 def iterate():
@@ -64,8 +67,8 @@ def index():
 def signup():
     if request.method == "POST":
         phone = int(request.form.get("phone"))
-        network = request.form.get("network")
-        name = request.form.get("name")
+        network = str(request.form.get("network"))
+        name = str(request.form.get("name"))
         tocommit = Users(id=len(Users.query.all())+1, phone=phone, network=network, name=name)
         db.session.add(tocommit)
         db.session.commit()
