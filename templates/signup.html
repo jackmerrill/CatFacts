@@ -24,8 +24,8 @@
         <br>
         <h3>Cell Network</h3>
         <br>
-        <select name="network" id="">
-            
+        <select name="network" id="network" required>
+            <option value="">Select...</option>
         </select>
         <br>
         <h3>Name</h3>
@@ -40,7 +40,7 @@
         console.log(arr)
         setTimeout(function(){
             for (x in arr) {
-                document.getElementsByName("select").innerHTML += '<option>'+x+'</option>'
+                document.getElementById("network").innerHTML += '<option>'+x+'</option>'
             }
         },1000)
 
