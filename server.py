@@ -183,6 +183,7 @@ def firstMsg(num, name, network):
     message = "Hey {}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts!"
     email = num+"@"+Gateways[network]
     send(message, email)
+    sleep(2)
     send("If you would like to unsubscribe, please visit this link: http://catfacts.jackmerrill.com/stop/{}".format(num), email)
 
 def dailymsg(phone, network):
