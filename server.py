@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from threading import Thread
 from time import sleep
 import requests
-
+from email.message import EmailMessage
 
 Gateways = {
     'President\'s Choice': 'txt.bell.ca',
@@ -168,9 +168,14 @@ db.create_all()
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
 server.login("thesmscatfacts@gmail.com", config["password"])
+msg = EmailMessage()
 
 def send(message, tosend):
-    server.sendmail("thesmscatfacts@gmail.com", tosend, message)
+    msg.set_content(message)
+    msg['From'] = "thesmscatfacts@gmail.com"
+    msg['To'] = tosend
+    server.send_message(msg)
+
 
 
 def firstMsg(num, name, network):
