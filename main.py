@@ -37,13 +37,13 @@ client = shawk.Client(user, password)
 
 def firstMsg(num, name):
     user = Users.query.filter_by(phone=num)
-    client.send("Hey {0}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{1}".format(name, num), num) # replace link with domain
+    client.send("Hey {0}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{1}".format(name, num), number=num) # replace link with domain
 
 def dailymsg(phone):
     fact = requests.get("https://catfact.ninja/fact")
     fact = fact.json()
     user = Users.query.filter_by(phone=phone)
-    client.send("Your daily catfact is here! FACT: {}".format(fact["fact"]), user.phone)
+    client.send("Your daily catfact is here! FACT: {}".format(fact["fact"]), number=user.phone)
 
 
 def iterate():
