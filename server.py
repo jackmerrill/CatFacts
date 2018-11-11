@@ -37,7 +37,7 @@ client = shawk.Client(user, password)
 
 def firstMsg(num, name, network):
     u = Users.query.filter_by(phone=num)
-    client.send("Hey {0}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{1}".format(name, num), number=num, carrier=network) # replace link with domain
+    client.send("Hey {}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{}".format(name, num), number=num, carrier=network) # replace link with domain
 
 def dailymsg(phone, network):
     fact = requests.get("https://catfact.ninja/fact")
@@ -63,7 +63,7 @@ def index():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
-        phone = request.form.get("phone")
+        phone = int(request.form.get("phone"))
         network = request.form.get("network")
         name = request.form.get("name")
         tocommit = Users(id=len(Users.query.all())+1, phone=phone, network=network, name=name)
