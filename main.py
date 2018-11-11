@@ -35,20 +35,20 @@ client = shawk.Client(user, password)
 
 
 
-def firstMsg(num, name):
+def firstMsg(num, name, network):
     u = Users.query.filter_by(phone=num)
-    client.send("Hey {0}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{1}".format(name, num), number=num, carrier=u.network) # replace link with domain
+    client.send("Hey {0}! An anonymous friend signed you up for daily CatFacts! Every day you will recieve interesting cat related facts! *If you would like to unsubscribe, please visit this link: http://0.0.0.0/stop/{1}".format(name, num), number=num, carrier=network) # replace link with domain
 
-def dailymsg(phone):
+def dailymsg(phone, network):
     fact = requests.get("https://catfact.ninja/fact")
     fact = fact.json()
     u = Users.query.filter_by(phone=phone)
-    client.send("Your daily catfact is here! FACT: {}".format(fact["fact"]), number=phone, carrier=u.network)
+    client.send("Your daily catfact is here! FACT: {}".format(fact["fact"]), number=phone, carrier=network)
 
 
 def iterate():
     for user in Users.query.all():
-        dailymsg(user.phone)
+        dailymsg(user.phone, user.network)
 
 
 
@@ -70,7 +70,7 @@ def signup():
         db.session.add(tocommit)
         db.session.commit()
         client.add_contact(phone, network, name)
-        firstMsg(phone, name)
+        firstMsg(phone, name, network)
         return redirect("/")
     return render_template("signup.html")
 
