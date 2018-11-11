@@ -199,7 +199,7 @@ def iterate():
 
 
 
-setInterval(86400, iterate)
+setInterval(84600, iterate)
 
 # setInterval(10, iterate)
 
