@@ -205,9 +205,9 @@ def index():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
-        phone = int(request.form.get("phone"))
-        network = str(request.form.get("network"))
-        name = str(request.form.get("name"))
+        phone = request.form.get("phone")
+        network = request.form.get("network")
+        name = request.form.get("name")
         tocommit = Users(id=len(Users.query.all())+1, phone=phone, network=network, name=name)
         db.session.add(tocommit)
         db.session.commit()
