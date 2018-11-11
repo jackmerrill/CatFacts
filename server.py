@@ -168,13 +168,14 @@ db.create_all()
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
 server.login("thesmscatfacts@gmail.com", config["password"])
-msg = EmailMessage()
-msg['From'] = "thesmscatfacts@gmail.com"
 
 def send(message, tosend):
+    msg = EmailMessage()
+    msg['From'] = "thesmscatfacts@gmail.com"
     msg.set_content(message)
     msg['To'] = tosend
     server.send_message(msg)
+    del msg
 
 
 
